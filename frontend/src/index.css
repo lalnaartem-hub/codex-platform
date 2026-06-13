@@ -671,22 +671,8 @@ body {
 }
 
 /* Sandbox Mobile Mode (Песочница на телефонах) */
-.sandbox-mobile-container {
-  display: flex;
-  flex-direction: column;
-  height: calc(100vh - 64px);
-  background: #070709;
-  overflow: hidden;
-}
-
 .sandbox-mobile-tabs {
-  display: flex;
-  background: #0c0c0e;
-  border-bottom: 1px solid var(--glass-border);
-  height: 48px;
-  align-items: center;
-  justify-content: space-around;
-  padding: 0 4px;
+  display: none;
 }
 
 .sandbox-mobile-tab {
@@ -712,18 +698,87 @@ body {
   background: rgba(255, 255, 255, 0.02);
 }
 
-.sandbox-mobile-content {
-  flex: 1;
-  overflow: hidden;
-  position: relative;
-  display: flex;
-  flex-direction: column;
+@media (max-width: 768px) {
+  /* Показываем вкладки только на экранах < 768px */
+  .sandbox-mobile-tabs {
+    display: flex;
+    background: #0c0c0e;
+    border-bottom: 1px solid var(--glass-border);
+    height: 48px;
+    align-items: center;
+    justify-content: space-around;
+    padding: 0 4px;
+    z-index: 20;
+    width: 100%;
+  }
+
+  /* Заставляем компоненты Resizable вести себя как прозрачные контейнеры */
+  .resizable-splitter-container,
+  .resizable-panel,
+  .sandbox-panel-editor-result-wrapper {
+    display: contents !important;
+  }
+  
+  /* Скрываем ползунки ресайза */
+  .panel-resizer {
+    display: none !important;
+  }
+
+  /* Переопределяем высоту и поведение песочницы под 100dvh за вычетом шапки */
+  .sandbox-layout {
+    display: flex !important;
+    flex-direction: column !important;
+    height: calc(100dvh - 64px) !important;
+    width: 100vw !important;
+    overflow: hidden !important;
+  }
+  
+  /* Скрываем все 4 панели по умолчанию */
+  .sandbox-panel-lesson,
+  .sandbox-panel-editor,
+  .sandbox-panel-result,
+  .sandbox-panel-chat {
+    display: none !important;
+    flex-direction: column !important;
+    width: 100% !important;
+    height: 100% !important;
+    margin: 0 !important;
+    border: none !important;
+    border-radius: 0 !important;
+    flex: 1 !important;
+    overflow-y: auto !important;
+    background: #09090b !important;
+  }
+
+  /* Показываем только активную панель на основе класса родителя */
+  .mobile-tab-lesson .sandbox-panel-lesson {
+    display: flex !important;
+  }
+  .mobile-tab-editor .sandbox-panel-editor {
+    display: flex !important;
+  }
+  .mobile-tab-result .sandbox-panel-result {
+    display: flex !important;
+  }
+  .mobile-tab-chat .sandbox-panel-chat {
+    display: flex !important;
+  }
+  
+  /* Делаем внутренности панелей высотой в 100% для исключения двойных полос прокрутки */
+  .sandbox-panel-editor .editor-workspace,
+  .sandbox-panel-chat .ai-chat-messages {
+    flex: 1 !important;
+    height: auto !important;
+  }
+  
+  .terminal-tab-full {
+    display: none !important;
+  }
+  
+  .terminal-tab-short {
+    display: inline !important;
+  }
 }
 
-.sandbox-mobile-panel {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  overflow-y: auto;
-}
+
 

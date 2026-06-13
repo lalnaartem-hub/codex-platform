@@ -63,6 +63,7 @@ export const ResizableSplitter = ({
   return (
     <div 
       ref={containerRef}
+      className="resizable-splitter-container"
       style={{
         display: 'flex',
         flexDirection: isHor ? 'row' : 'column',
@@ -90,6 +91,7 @@ export const ResizableSplitter = ({
 
       {/* Левая / Верхняя панель */}
       <div 
+        className="resizable-panel slot-left"
         style={{
           width: isHor ? `${split}%` : '100%',
           height: isHor ? '100%' : `${split}%`,
@@ -115,6 +117,7 @@ export const ResizableSplitter = ({
 
       {/* Правая / Нижня панель */}
       <div 
+        className="resizable-panel slot-right"
         style={{
           width: isHor ? `${100 - split}%` : '100%',
           height: isHor ? '100%' : `${100 - split}%`,

@@ -137,7 +137,12 @@ export const LandingPage = ({ setCurrentView }) => {
                       transition: 'var(--transition-smooth)'
                     }}
                   >
-                    {lang === 'HTML' ? 'index.html' : lang === 'Python' ? 'main.py' : lang === 'SQL' ? 'query.sql' : 'solution.cpp'}
+                    <span className="terminal-tab-full">
+                      {lang === 'HTML' ? 'index.html' : lang === 'Python' ? 'main.py' : lang === 'SQL' ? 'query.sql' : 'solution.cpp'}
+                    </span>
+                    <span className="terminal-tab-short" style={{ display: 'none' }}>
+                      {lang}
+                    </span>
                   </button>
                 ))}
               </div>
