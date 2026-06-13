@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useCodex } from '../context/CodexContext';
 import { ResizableSplitter as Resizable } from '../components/ResizablePanels';
-import { Play, CheckCircle2, ChevronRight, HelpCircle, Send, Sparkles, Terminal as TermIcon, FileCode, Check, X, ExternalLink } from 'lucide-react';
+import { Play, CheckCircle2, ChevronRight, HelpCircle, Send, Sparkles, Terminal as TermIcon, FileCode, Check, X, ExternalLink, BookOpen, MessageSquare, Activity, AlertCircle, Zap } from 'lucide-react';
 import confetti from 'canvas-confetti';
 
 export const SandboxView = ({ setCurrentView }) => {
@@ -249,10 +249,10 @@ export const SandboxView = ({ setCurrentView }) => {
             setConsoleLogs(prev => [...prev, '> Тесты пройдены успешно.', '> Рендеринг превью завершен.']);
             triggerSuccess();
           } else {
-            setConsoleLogs(prev => [...prev, `❌ Ошибка: Пройдено ${passedCount} из ${rules.length} тестов.`]);
+            setConsoleLogs(prev => [...prev, `[ERROR] Ошибка: Пройдено ${passedCount} из ${rules.length} тестов.`]);
           }
         } catch (err) {
-          setConsoleLogs(prev => [...prev, `❌ Критическая ошибка: ${err.message}`]);
+          setConsoleLogs(prev => [...prev, `[ERROR] Критическая ошибка: ${err.message}`]);
         }
       }, 100);
 
@@ -351,13 +351,13 @@ export const SandboxView = ({ setCurrentView }) => {
         setActiveTab('tests');
 
         if (passedCount === testSuite.length && testSuite.length > 0) {
-          setConsoleLogs(prev => [...prev, '⚡ Тесты пройдены! Результаты верны.', '> Выполнено успешно.']);
+          setConsoleLogs(prev => [...prev, '[OK] Тесты пройдены! Результаты верны.', '> Выполнено успешно.']);
           triggerSuccess();
         } else {
-          setConsoleLogs(prev => [...prev, `❌ Ошибка: Тесты провалены (${passedCount} из ${testSuite.length} пройдено)`]);
+          setConsoleLogs(prev => [...prev, `[ERROR] Ошибка: Тесты провалены (${passedCount} из ${testSuite.length} пройдено)`]);
         }
       } catch (err) {
-        setConsoleLogs(prev => [...prev, `❌ Ошибка интерпретатора:\n${err.message}`]);
+        setConsoleLogs(prev => [...prev, `[ERROR] Ошибка интерпретатора: ${err.message}`]);
         setTestResults([{ id: 0, name: 'Компиляция кода', passed: false, error: err.message }]);
         setActiveTab('tests');
       }
@@ -388,7 +388,7 @@ export const SandboxView = ({ setCurrentView }) => {
         if (passed) {
           triggerSuccess();
         } else {
-          setConsoleLogs(prev => [...prev, '❌ Результат выборки не совпадает с ожидаемым. Проверьте условия WHERE или ORDER BY.']);
+          setConsoleLogs(prev => [...prev, '[ERROR] Результат выборки не совпадает с ожидаемым. Проверьте условия WHERE или ORDER BY.']);
         }
       }
 
@@ -422,11 +422,11 @@ export const SandboxView = ({ setCurrentView }) => {
         } else {
           setConsoleLogs(prev => [
             ...prev,
-            `❌ Ошибка сборки: код не удовлетворяет спецификации задачи.`
+            `[ERROR] Ошибка сборки: код не удовлетворяет спецификации задачи.`
           ]);
         }
       } catch (err) {
-        setConsoleLogs(prev => [...prev, `❌ Ошибка компилятора: ${err.message}`]);
+        setConsoleLogs(prev => [...prev, `[ERROR] Ошибка компилятора: ${err.message}`]);
       }
     }
   };
@@ -455,25 +455,29 @@ export const SandboxView = ({ setCurrentView }) => {
           className={`sandbox-mobile-tab ${mobileTab === 'lesson' ? 'active' : ''}`}
           onClick={() => setMobileTab('lesson')}
         >
-          📖 Урок
+          <BookOpen size={14} />
+          <span>Урок</span>
         </button>
         <button 
           className={`sandbox-mobile-tab ${mobileTab === 'editor' ? 'active' : ''}`}
           onClick={() => setMobileTab('editor')}
         >
-          💻 Редактор
+          <FileCode size={14} />
+          <span>Редактор</span>
         </button>
         <button 
           className={`sandbox-mobile-tab ${mobileTab === 'result' ? 'active' : ''}`}
           onClick={() => setMobileTab('result')}
         >
-          🚀 Результат
+          <Activity size={14} />
+          <span>Результат</span>
         </button>
         <button 
           className={`sandbox-mobile-tab ${mobileTab === 'chat' ? 'active' : ''}`}
           onClick={() => setMobileTab('chat')}
         >
-          💬 Чат
+          <MessageSquare size={14} />
+          <span>Чат</span>
         </button>
       </div>
 
@@ -735,9 +739,47 @@ export const SandboxView = ({ setCurrentView }) => {
                               style={{ width: '100%', height: '100%', background: '#fff', border: 'none' }}
                             />
                           ) : (
-                            <pre style={{ padding: '16px', fontFamily: 'var(--font-mono)', fontSize: '12px', color: '#10b981', background: '#060608', height: '100%', margin: 0, overflow: 'auto' }}>
-                              {consoleLogs.join('\n') || '> Консоль готова...'}
-                            </pre>
+                            <div style={{ padding: '10px', fontFamily: 'var(--font-mono)', fontSize: '12px', background: '#060608', height: '100%', overflow: 'auto', display: 'flex', flexDirection: 'column', gap: '2px' }}>
+                              {consoleLogs.length === 0 ? (
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '4px 6px', color: '#27272a' }}>
+                                  <TermIcon size={11} />
+                                  <span>{'> Консоль готова...'}</span>
+                                </div>
+                              ) : consoleLogs.map((log, i) => {
+                                const isError = log.startsWith('[ERROR]');
+                                const isOk = log.startsWith('[OK]');
+                                const isCompiler = log.startsWith('[compiler]');
+                                const isOutput = log.startsWith('> ');
+                                const clean = log.replace(/^\[(ERROR|OK|compiler)\]\s*/, '');
+                                return (
+                                  <div key={i} style={{
+                                    display: 'flex',
+                                    gap: '8px',
+                                    alignItems: 'flex-start',
+                                    padding: '3px 6px',
+                                    borderRadius: '4px',
+                                    background: isError ? 'rgba(239,68,68,0.06)' : isOk ? 'rgba(16,185,129,0.06)' : 'transparent',
+                                    borderLeft: isError ? '2px solid rgba(239,68,68,0.5)' : isOk ? '2px solid rgba(16,185,129,0.5)' : '2px solid transparent'
+                                  }}>
+                                    {isError ? (
+                                      <AlertCircle size={11} style={{ color: '#ef4444', flexShrink: 0, marginTop: '3px' }} />
+                                    ) : isOk ? (
+                                      <Zap size={11} style={{ color: '#10b981', flexShrink: 0, marginTop: '3px' }} />
+                                    ) : isCompiler ? (
+                                      <TermIcon size={11} style={{ color: '#52525b', flexShrink: 0, marginTop: '3px' }} />
+                                    ) : (
+                                      <span style={{ width: '11px', flexShrink: 0 }} />
+                                    )}
+                                    <span style={{
+                                      color: isError ? '#fca5a5' : isOk ? '#a7f3d0' : isCompiler ? '#52525b' : isOutput ? '#10b981' : '#71717a',
+                                      lineHeight: '1.6',
+                                      whiteSpace: 'pre-wrap',
+                                      wordBreak: 'break-all'
+                                    }}>{clean}</span>
+                                  </div>
+                                );
+                              })}
+                            </div>
                           )
                         ) : (
                           /* ТЕСТ-КЕЙСЫ (LeetCode Style) */

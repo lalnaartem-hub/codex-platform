@@ -679,8 +679,10 @@ body {
   background: transparent;
   border: none;
   color: var(--text-secondary);
-  font-size: 12px;
-  font-weight: 600;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
   cursor: pointer;
   padding: 8px 12px;
   height: 100%;
@@ -690,6 +692,12 @@ body {
   border-bottom: 2px solid transparent;
   transition: all 0.2s ease;
   font-family: var(--font-sans);
+  gap: 6px;
+}
+
+.sandbox-mobile-tab svg {
+  color: var(--text-secondary);
+  transition: color 0.2s ease, transform 0.2s ease;
 }
 
 .sandbox-mobile-tab.active {
@@ -698,7 +706,47 @@ body {
   background: rgba(255, 255, 255, 0.02);
 }
 
+.sandbox-mobile-tab.active svg {
+  color: var(--color-primary);
+  transform: scale(1.1);
+}
+
 @media (max-width: 768px) {
+  /* Сжатие глобальных шрифтов и отступов на мобильных экранах */
+  body {
+    font-size: 13px !important;
+  }
+  
+  h1 {
+    font-size: 24px !important;
+    line-height: 1.2 !important;
+  }
+  
+  h2 {
+    font-size: 20px !important;
+  }
+  
+  h3 {
+    font-size: 16px !important;
+  }
+  
+  h4 {
+    font-size: 13px !important;
+  }
+
+  .page-fade {
+    padding: 24px 14px !important;
+  }
+
+  /* Уменьшение отступов карточек и панелей для плотной мобильной компоновки */
+  .glass-card {
+    padding: 16px !important;
+  }
+
+  .glass-panel {
+    padding: 14px !important;
+  }
+
   /* Показываем вкладки только на экранах < 768px */
   .sandbox-mobile-tabs {
     display: flex;
@@ -779,6 +827,7 @@ body {
     display: inline !important;
   }
 }
+
 
 
 
