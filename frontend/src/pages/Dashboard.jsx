@@ -36,12 +36,7 @@ export const Dashboard = ({ setCurrentView }) => {
       </h2>
 
       {/* Верхняя сетка с общей статистикой */}
-      <div style={{
-        display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-        gap: '20px',
-        marginBottom: '40px'
-      }}>
+      <div className="dashboard-stats-grid">
         {/* Карточка профиля */}
         <ScrollReveal delay={0}>
           <div className="glass-card" style={{ display: 'flex', gap: '16px', alignItems: 'center', height: '100%' }}>
@@ -120,13 +115,7 @@ export const Dashboard = ({ setCurrentView }) => {
       </div>
 
       {/* 2-Column Split Layout */}
-      <div style={{
-        display: 'grid',
-        gridTemplateColumns: '1.6fr 1fr',
-        gap: '32px',
-        alignItems: 'start',
-        flexWrap: 'wrap'
-      }}>
+      <div className="dashboard-split-layout">
         {/* Активные курсы (слева) */}
         <ScrollReveal delay={100}>
           <div>

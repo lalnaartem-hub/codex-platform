@@ -409,3 +409,321 @@ body {
   background-size: 24px 24px;
   opacity: 0.85;
 }
+
+/* -------------------------------------------------------------
+   MOBILE AND RESPONSIVE OVERRIDES (Codex Responsiveness Overhaul)
+   ------------------------------------------------------------- */
+
+/* Адаптивный Navbar */
+.navbar-logo-text {
+  transition: opacity 0.2s ease;
+}
+
+.navbar-progress-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+  justify-content: center;
+  max-width: 40%;
+  margin: 0 20px;
+}
+
+.navbar-progress-text {
+  font-size: 11px;
+  color: var(--text-secondary);
+  white-space: nowrap;
+  font-family: var(--font-mono);
+}
+
+.navbar-progress-bar-bg {
+  width: 100%;
+  height: 5px;
+  background: #09090b;
+  border-radius: 3px;
+  overflow: hidden;
+  border: 1px solid var(--glass-border);
+}
+
+.navbar-progress-bar-fill {
+  height: 100%;
+  background: var(--color-accent);
+  border-radius: 3px;
+  transition: width 0.4s ease;
+}
+
+.navbar-progress-percentage {
+  font-size: 11px;
+  font-weight: bold;
+  font-family: var(--font-mono);
+  color: #ffffff;
+}
+
+.navbar-profile {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-left: 1px solid var(--glass-border);
+  padding-left: 12px;
+  margin-left: 4px;
+}
+
+.navbar-username {
+  font-size: 11px;
+  color: var(--text-secondary);
+  font-weight: 600;
+  font-family: var(--font-mono);
+}
+
+.logout-btn {
+  padding: 6px 10px;
+  height: 32px;
+  font-size: 11px;
+}
+
+@media (max-width: 900px) {
+  .navbar-progress-container {
+    max-width: none;
+    margin: 0 10px;
+    gap: 8px;
+  }
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    padding: 0 16px;
+  }
+  .navbar-logo-text {
+    display: none; /* Скрываем текст логотипа, оставляем иконку */
+  }
+  .navbar-progress-bar-bg {
+    display: none; /* Скрываем шкалу прогресса */
+  }
+  .navbar-progress-percentage {
+    display: none; /* Скрываем процент */
+  }
+  .navbar-progress-text {
+    font-size: 10px;
+  }
+  .navbar-btn-text {
+    display: none; /* Скрываем текст кнопок (Кабинет) */
+  }
+  .navbar-username {
+    display: none; /* Скрываем имя пользователя */
+  }
+  .navbar-xp-text {
+    display: none; /* Скрываем детальный XP */
+  }
+  .reset-btn {
+    display: none; /* Скрываем кнопку сброса прогресса на мобильных */
+  }
+  .navbar-profile {
+    border-left: none;
+    padding-left: 0;
+    margin-left: 0;
+  }
+  .logout-btn-text {
+    display: none;
+  }
+  .logout-btn-icon {
+    display: block !important;
+  }
+  .logout-btn {
+    padding: 6px 8px;
+  }
+}
+
+@media (max-width: 500px) {
+  .navbar-progress-container {
+    display: none; /* Полностью скрываем индикатор шагов */
+  }
+  .streak-badge {
+    display: none; /* Скрываем счетчик дней */
+  }
+  .level-badge {
+    display: none; /* Скрываем уровень */
+  }
+}
+
+/* Landing Page (Главная страница) */
+.hero-title {
+  font-size: 46px;
+}
+
+.landing-terminal-container {
+  width: 100%;
+  max-width: 720px;
+  min-width: 300px;
+  background: #0c0c0e;
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+  border-radius: 8px;
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+  z-index: 2;
+}
+
+.catalog-container {
+  display: flex;
+  gap: 32px;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.catalog-sidebar {
+  flex: 1 1 240px;
+  max-width: 280px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  position: sticky;
+  top: 96px;
+}
+
+.filter-buttons-container {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.catalog-grid-wrapper {
+  flex: 3 1 600px;
+  width: 100%;
+}
+
+.catalog-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 24px;
+}
+
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: 28px !important;
+    line-height: 1.25;
+  }
+  .catalog-container {
+    flex-direction: column;
+    gap: 20px;
+  }
+  .catalog-sidebar {
+    position: static;
+    max-width: 100%;
+    width: 100%;
+    flex: none;
+  }
+  .filter-buttons-container {
+    flex-direction: row;
+    overflow-x: auto;
+    padding-bottom: 8px;
+    scrollbar-width: none; /* Firefox */
+  }
+  .filter-buttons-container::-webkit-scrollbar {
+    display: none; /* Chrome/Safari */
+  }
+  .filter-buttons-container button {
+    flex: 0 0 auto;
+    width: auto !important;
+  }
+  .catalog-stats {
+    display: none !important; /* Скрываем статистику каталога на мобильных */
+  }
+  .catalog-grid-wrapper {
+    flex: none;
+  }
+}
+
+@media (max-width: 500px) {
+  .catalog-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Dashboard Page (Личный кабинет) */
+.dashboard-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  margin-bottom: 40px;
+}
+
+.dashboard-split-layout {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr;
+  gap: 32px;
+  align-items: start;
+}
+
+@media (max-width: 768px) {
+  .dashboard-split-layout {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+}
+
+@media (max-width: 600px) {
+  .dashboard-stats-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Sandbox Mobile Mode (Песочница на телефонах) */
+.sandbox-mobile-container {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 64px);
+  background: #070709;
+  overflow: hidden;
+}
+
+.sandbox-mobile-tabs {
+  display: flex;
+  background: #0c0c0e;
+  border-bottom: 1px solid var(--glass-border);
+  height: 48px;
+  align-items: center;
+  justify-content: space-around;
+  padding: 0 4px;
+}
+
+.sandbox-mobile-tab {
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 8px 12px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s ease;
+  font-family: var(--font-sans);
+}
+
+.sandbox-mobile-tab.active {
+  color: #ffffff;
+  border-bottom-color: var(--color-primary);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.sandbox-mobile-content {
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.sandbox-mobile-panel {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow-y: auto;
+}
+

@@ -88,7 +88,7 @@ export const LandingPage = ({ setCurrentView }) => {
       }}>
         <div style={{ maxWidth: '750px', marginBottom: '40px', position: 'relative', zIndex: 2 }}>
           <ScrollReveal>
-            <h1 style={{ fontSize: '46px', fontWeight: '800', lineHeight: '1.15', marginBottom: '20px', letterSpacing: '-1px' }}>
+            <h1 className="hero-title" style={{ fontWeight: '800', lineHeight: '1.15', marginBottom: '20px', letterSpacing: '-1px' }}>
               Освой IT-навыки в <span className="text-glow-gradient">интерактивной песочнице</span> разработки
             </h1>
           </ScrollReveal>
@@ -115,24 +115,8 @@ export const LandingPage = ({ setCurrentView }) => {
         </div>
 
         {/* Широкоэкранный интерактивный терминал с кодом */}
-        <ScrollReveal delay={200}>
-          <div 
-            style={{
-              width: '100%',
-              minWidth: '320px',
-              width: '720px',
-              background: '#0c0c0e',
-              border: '1px solid var(--glass-border)',
-              boxShadow: '0 12px 40px rgba(0, 0, 0, 0.4)',
-              borderRadius: '8px',
-              height: '300px',
-              display: 'flex',
-              flexDirection: 'column',
-              overflow: 'hidden',
-              position: 'relative',
-              zIndex: 2
-            }}
-          >
+        <ScrollReveal delay={200} style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
+          <div className="landing-terminal-container">
             {/* Header вкладки */}
             <div style={{ display: 'flex', background: '#070709', borderBottom: '1px solid var(--glass-border)', padding: '0 12px', height: '36px', alignItems: 'center', justifyContent: 'space-between' }}>
               <div style={{ display: 'flex', gap: '4px' }}>
@@ -184,16 +168,16 @@ export const LandingPage = ({ setCurrentView }) => {
           </div>
         </ScrollReveal>
 
-        <div id="courses-section" style={{ display: 'flex', gap: '32px', alignItems: 'flex-start', flexWrap: 'wrap' }}>
+        <div id="courses-section" className="catalog-container">
           
           {/* Левый фильтр-панель */}
-          <div style={{ flex: '1 1 240px', maxWidth: '280px', display: 'flex', flexDirection: 'column', gap: '20px', position: 'sticky', top: '96px' }}>
+          <div className="catalog-sidebar">
             <ScrollReveal delay={50}>
               <div className="glass-panel" style={{ padding: '16px', background: '#0c0c0e' }}>
                 <h4 style={{ fontSize: '11px', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '1px', color: 'var(--text-muted)', marginBottom: '12px' }}>
                   Разделы
                 </h4>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                <div className="filter-buttons-container">
                   {['All', 'Frontend', 'Programming', 'Database'].map(tab => (
                     <button
                       key={tab}
@@ -221,7 +205,7 @@ export const LandingPage = ({ setCurrentView }) => {
 
             {/* Статистическая сводка */}
             <ScrollReveal delay={100}>
-              <div className="glass-panel" style={{ padding: '16px', background: '#0c0c0e', display: 'flex', flexDirection: 'column', gap: '12px', fontSize: '12px' }}>
+              <div className="glass-panel catalog-stats" style={{ padding: '16px', background: '#0c0c0e', display: 'flex', flexDirection: 'column', gap: '12px', fontSize: '12px' }}>
                 <div>
                   <span style={{ color: 'var(--text-muted)' }}>Доступно курсов:</span>
                   <div style={{ fontWeight: 'bold', fontSize: '15px', color: '#ffffff', marginTop: '2px' }}>10 модулей</div>
@@ -235,12 +219,8 @@ export const LandingPage = ({ setCurrentView }) => {
           </div>
 
           {/* Правая сетка курсов */}
-          <div style={{ flex: '3 1 600px' }}>
-            <div style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
-              gap: '24px'
-            }}>
+          <div className="catalog-grid-wrapper">
+            <div className="catalog-grid">
               {filteredCourses.map((course, index) => {
                 const IconComponent = CATEGORY_ICONS[course.icon] || Terminal;
                 const completed = userState.completedSteps[course.id] || [];
