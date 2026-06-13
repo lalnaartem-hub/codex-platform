@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 
-export const ScrollReveal = ({ children, delay = 0 }) => {
+export const ScrollReveal = ({ children, delay = 0, style = {} }) => {
   const ref = useRef(null);
   const [isVisible, setIsVisible] = useState(false);
 
@@ -38,7 +38,8 @@ export const ScrollReveal = ({ children, delay = 0 }) => {
         opacity: isVisible ? 1 : 0,
         transform: isVisible ? 'translateY(0)' : 'translateY(16px)',
         transition: 'opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)',
-        transitionDelay: `${delay}ms`
+        transitionDelay: `${delay}ms`,
+        ...style
       }}
     >
       {children}
