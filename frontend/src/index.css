@@ -1,0 +1,411 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap');
+
+:root {
+  /* Базовые цвета (Премиальная темная консоль) */
+  --bg-deep: #070709;
+  --bg-dark: #0c0c0e;
+  --bg-card: #121214;
+  --glass-bg: #0d0d10;
+  --glass-border: #1e1e22;
+  --glass-border-glow: #2c2c35;
+
+  /* Строгие Monochrome переменные */
+  --color-primary: #ffffff; 
+  --color-secondary: #27272a; 
+  --color-accent: #2563eb; /* Чистый синий VS Code для активных шкал */
+  
+  --gradient-accent-text: linear-gradient(to right, #ffffff 40%, #a1a1aa 100%);
+
+  /* Статусы */
+  --color-success: #10b981;
+  --color-success-glow: rgba(16, 185, 129, 0.08);
+  --color-warning: #f59e0b;
+  --color-danger: #ef4444;
+  --color-danger-glow: rgba(239, 68, 68, 0.08);
+
+  /* Текст */
+  --text-primary: #fafafa;
+  --text-secondary: #a1a1aa;
+  --text-muted: #52525b;
+
+  /* Шрифты */
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  /* Пружинный переход (Spring Transition) */
+  --transition-spring: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  --transition-smooth: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-deep);
+  color: var(--text-primary);
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+/* Минималистичные плоские скроллбары */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-deep);
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1e1e22;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #2c2c35;
+}
+
+/* Выключаем любые фоновые свечения */
+.glow-bg, .ambient-glow {
+  display: none !important;
+}
+
+/* Элементы Стеклянного Интерфейса (Преобразованы в строгий плоский стиль) */
+.glass-panel {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 6px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+  transition: var(--transition-smooth);
+}
+
+.glass-card {
+  background: var(--bg-card);
+  border: 1px solid var(--glass-border);
+  border-radius: 6px;
+  padding: 24px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Убрана градиентная полоса сверху */
+.glass-card::before {
+  display: none !important;
+}
+
+.glass-card:hover {
+  border-color: #3f3f46;
+}
+
+/* Заголовки с серебристым переливом */
+.text-glow-gradient {
+  background: var(--gradient-accent-text);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-size: 100% auto;
+}
+
+/* Кнопки с плоским монохромным стилем (Белая заливка, черный текст) */
+.btn-neon {
+  background: #ffffff;
+  color: #070709;
+  border: 1px solid #ffffff;
+  padding: 10px 20px;
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: var(--transition-spring);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.05);
+}
+
+.btn-neon:hover {
+  background: #e4e4e7;
+  border-color: #e4e4e7;
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 6px 18px rgba(255, 255, 255, 0.1);
+}
+
+.btn-neon:active {
+  transform: translateY(1px);
+}
+
+.btn-neon:disabled {
+  background: #27272a;
+  border-color: #27272a;
+  color: var(--text-muted);
+  box-shadow: none;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.btn-glass {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--glass-border);
+  color: var(--text-secondary);
+  padding: 10px 20px;
+  font-weight: 500;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: var(--transition-spring);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-glass:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: #3f3f46;
+  color: #ffffff;
+  transform: translateY(-1px);
+}
+
+.btn-glass.active {
+  background: rgba(255, 255, 255, 0.05) !important;
+  border-color: #ffffff !important;
+  color: #ffffff !important;
+}
+
+/* Навигация */
+.navbar {
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 64px;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  background: rgba(7, 7, 9, 0.85);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--glass-border);
+}
+
+/* Стили Редактора Кода */
+.code-editor-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: #09090b;
+  border-radius: 8px;
+  border: 1px solid var(--glass-border);
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+.code-editor-header {
+  height: 40px;
+  background: #0c0c0e;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  border-bottom: 1px solid var(--glass-border);
+  justify-content: space-between;
+}
+
+.code-editor-tabs {
+  display: flex;
+  gap: 4px;
+}
+
+.code-editor-tab {
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  padding: 4px 12px;
+  cursor: pointer;
+  border-radius: 4px;
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 500;
+  transition: var(--transition-smooth);
+}
+
+.code-editor-tab.active {
+  background: rgba(255, 255, 255, 0.04);
+  color: #ffffff;
+  border: 1px solid var(--glass-border-glow);
+}
+
+.editor-workspace {
+  display: flex;
+  flex: 1;
+  position: relative;
+  overflow: auto;
+}
+
+.line-numbers {
+  width: 44px;
+  background: #060608;
+  color: #383842;
+  text-align: right;
+  padding: 16px 12px 16px 0;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 20px;
+  user-select: none;
+  border-right: 1px solid #141416;
+}
+
+.editor-textarea {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  resize: none;
+  color: #e4e4e7;
+  padding: 16px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 20px;
+  white-space: pre;
+  tab-size: 4;
+}
+
+/* Разделитель панелей для Resizing */
+.panel-resizer {
+  width: 4px;
+  background: #18181b;
+  cursor: col-resize;
+  transition: var(--transition-smooth);
+  position: relative;
+  z-index: 10;
+}
+
+.panel-resizer:hover, .panel-resizer.resizing {
+  background: var(--color-accent);
+}
+
+/* Общая страница песочницы */
+.sandbox-layout {
+  display: flex;
+  height: calc(100vh - 64px);
+  width: 100vw;
+  overflow: hidden;
+  background: var(--bg-deep);
+}
+
+/* ИИ Ассистент */
+.ai-panel {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: #0c0c0e;
+  border-left: 1px solid var(--glass-border);
+}
+
+.ai-chat-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.ai-message {
+  max-width: 85%;
+  padding: 12px 16px;
+  border-radius: 8px;
+  line-height: 1.5;
+  font-size: 13px;
+  animation: message-pop 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes message-pop {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.ai-message.ai {
+  background: #121214;
+  border: 1px solid var(--glass-border);
+  color: var(--text-primary);
+  align-self: flex-start;
+  border-top-left-radius: 0;
+}
+
+.ai-message.user {
+  background: #1e1e24;
+  border: 1px solid #2e2e36;
+  color: var(--text-primary);
+  align-self: flex-end;
+  border-top-right-radius: 0;
+}
+
+.ai-input-area {
+  padding: 16px;
+  border-top: 1px solid var(--glass-border);
+  display: flex;
+  gap: 8px;
+  background: #070709;
+}
+
+.ai-input {
+  flex: 1;
+  background: #121214;
+  border: 1px solid var(--glass-border);
+  border-radius: 6px;
+  padding: 10px 14px;
+  color: var(--text-primary);
+  outline: none;
+  font-family: var(--font-sans);
+  font-size: 13px;
+  transition: var(--transition-smooth);
+}
+
+.ai-input:focus {
+  border-color: #3f3f46;
+}
+
+.ai-input:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Анимация переходов страниц */
+.page-fade {
+  animation: fade-slide-in 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes fade-slide-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* CSS Dot-Grid Background */
+.grid-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+  pointer-events: none;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: 24px 24px;
+  opacity: 0.85;
+}
